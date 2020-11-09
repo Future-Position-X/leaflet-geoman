@@ -30,6 +30,31 @@ const Utils = {
 
     return layers;
   },
+
+  findEditableLayers(map) {
+    let layers = [];
+    map.eachLayer(layer => {
+      if (
+        layer instanceof L.Polyline ||
+        layer instanceof L.Marker ||
+        layer instanceof L.Circle ||
+        layer instanceof L.CircleMarker
+      ) {
+        layers.push(layer);
+      }
+    });
+
+    // filter out layers that don't have the leaflet-geoman instance
+    layers = layers.filter(layer => !!layer.pm);
+
+    // filter out layers that should be ignored
+    layers = layers.filter(layer => !layer.pm.pmIgnore);
+
+    // filter out everything that's leaflet-geoman specific temporary stuff
+    layers = layers.filter(layer => !layer._pmTempLayer);
+
+    return layers;
+  },
   circleToPolygon(circle, sides = 60) {
     const origin = circle.getLatLng();
     const radius = circle.getRadius();

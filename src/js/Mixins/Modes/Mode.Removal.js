@@ -1,3 +1,6 @@
+import Utils from '../../L.PM.Utils';
+const { findEditableLayers } = Utils
+
 const GlobalRemovalMode = {
   disableGlobalRemovalMode() {
     this._globalRemovalMode = false;
@@ -20,9 +23,10 @@ const GlobalRemovalMode = {
 
     this._globalRemovalMode = true;
     // handle existing layers
-    this.map.eachLayer(layer => {
+    const layers = findEditableLayers(this.map);
+    layers.forEach(layer => {
       if (isRelevant(layer)) {
-        layer.pm.disable();
+        // layer.pm.disable();
         layer.on('click', this.removeLayer, this);
       }
     });

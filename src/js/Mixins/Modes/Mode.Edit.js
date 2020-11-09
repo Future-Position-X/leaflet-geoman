@@ -1,7 +1,7 @@
 // this mixin adds a global edit mode to the map
 import Utils from '../../L.PM.Utils'
 
-const { findLayers } = Utils
+const { findLayers, findEditableLayers } = Utils
 
 const GlobalEditMode = {
   _globalEditMode: false,
@@ -31,7 +31,7 @@ const GlobalEditMode = {
     this.Toolbar.toggleButton('editMode', status);
 
     // find all layers handled by leaflet-geoman
-    const layers = findLayers(this.map);
+    const layers = findEditableLayers(this.map);
 
     // enable all layers
     layers.forEach(layer => {

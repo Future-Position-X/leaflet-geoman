@@ -1,13 +1,13 @@
 import Utils from '../../L.PM.Utils'
 
-const { findLayers } = Utils
+const { findLayers, findEditableLayers } = Utils
 
 const GlobalDragMode = {
   globalDragModeEnabled() {
     return !!this._globalDragMode;
   },
   enableGlobalDragMode() {
-    const layers = findLayers(this.map);
+    const layers = findEditableLayers(this.map);
 
     this._globalDragMode = true;
 
